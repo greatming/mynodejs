@@ -1,0 +1,28 @@
+module.exports = function(grunt) {
+
+  // Project configuration.
+grunt.initConfig({
+  concat: {
+    sample: {
+      options: {
+        banner: '/* <%= baz %> */\n',   // '/* abcde */\n'
+      },
+      src: ['<%= qux %>', 'baz/*.js'],  // [['foo/*.js', 'bar/*.js'], 'baz/*.js']
+      dest: 'build/<%= baz %>.js',      // 'build/abcde.js'
+    },
+  },
+  //用于任务配置模板的任意属性
+  foo: 'c',
+  bar: 'b<%= foo %>d', // 'bcd'
+  baz: 'a<%= bar %>e', // 'abcde'
+  qux: ['foo/*.js', 'bar/*.js'],
+});
+
+  // 加载包含 "uglify" 任务的插件。
+  grunt.loadNpmTasks('grunt-contrib-uglify');
+
+  // 默认被执行的任务列表。
+  grunt.registerTask('default', ['uglify']);
+
+};
+
